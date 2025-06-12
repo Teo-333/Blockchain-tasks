@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Work\\Blockchain\\Blockchain-tasks\\contracts\\Lock.sol": {
-      "lastModificationDate": 1749733590249,
+      "lastModificationDate": 1749736694791,
       "contentHash": "7eee587c347fe6b1de50c96688cb9477",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
@@ -35,6 +35,42 @@
       ],
       "artifacts": [
         "Lock"
+      ]
+    },
+    "C:\\Work\\Blockchain\\Blockchain-tasks\\contracts\\Greeter.sol": {
+      "lastModificationDate": 1749737202106,
+      "contentHash": "00900b7a4711a41470fdd7a3b787fd4e",
+      "sourceName": "contracts/Greeter.sol",
+      "solcConfig": {
+        "version": "0.8.28",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Greeter"
       ]
     }
   }
