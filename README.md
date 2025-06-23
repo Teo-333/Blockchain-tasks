@@ -11,7 +11,3 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
-
-# Task 7
-
-This is the task-7 branch - an orphan branch with no history from other branches.
