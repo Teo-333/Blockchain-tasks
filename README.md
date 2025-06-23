@@ -10,28 +10,34 @@ This repo contains two Solidity contracts and Hardhat scripts to deploy them on 
    npm install
    ```
 3. Copy `.env.example` to `.env` and fill in:
-   - `PRIVATE_KEY` – deployer wallet private key
-   - `SEPOLIA_RPC` – RPC URL to Sepolia (Infura/Alchemy etc.)
-   - `STUDENT_WALLET` – student address to receive NFTs
-   - `VISIT_BASE_CID` – base CID for the visit card metadata
-   - `CHARACTER_BASE_CID` – base CID for the character metadata
+   - `PRIVATE_KEY` – private key of the account that will deploy the contracts. In MetaMask you can export this from the account settings.
+   - `SEPOLIA_RPC` – Sepolia RPC URL from a provider such as [Infura](https://infura.io/) or [Alchemy](https://alchemy.com/).
+   - `STUDENT_WALLET` – Ethereum address of the student receiving the NFTs.
+   - `VISIT_BASE_CID` – IPFS CID for the folder holding the visit card metadata.
+   - `CHARACTER_BASE_CID` – IPFS CID for the folder holding the character metadata.
 
 ## IPFS Pinning
 
-Images and metadata are pinned with [nft.storage](https://nft.storage). Example upload:
+Images and JSON metadata should be uploaded to IPFS. A convenient option is
+[nft.storage](https://nft.storage). Install the CLI and upload a directory
+containing your files:
 
 ```bash
 npm i -g nft.storage
 export NFT_STORAGE_KEY=YOUR_KEY
-nft.storage upload --name visit.png ./visit.png
+nft.storage upload --name visit-directory ./visit_assets
 ```
 
-Record the directory CIDs for:
+The command prints a directory CID. Record two of them:
 
-- Visit card assets → `bafyvisitcid`
-- Game characters assets → `bafycharcid`
+- Visit card directory → `bafyvisitcid`
+- Game characters directory → `bafycharcid`
 
-These CIDs become the base URI for each contract (e.g. `ipfs://bafyvisitcid/`).
+Inside each directory place the images and `id.json` files (e.g. `1.json`,
+`2.json`). The contracts will call `tokenURI` which resolves to
+`ipfs://bafyvisitcid/1.json`.
+
+Set these CIDs as `VISIT_BASE_CID` and `CHARACTER_BASE_CID` in your `.env` file.
 
 ## Compile & Test
 
@@ -40,12 +46,23 @@ npx hardhat compile
 npx hardhat test
 ```
 
-## Deploy & Mint
+## All-in-one Script
 
-Deploy to Sepolia:
+To compile, test and deploy in a single step run:
 
 ```bash
-npx hardhat run scripts/deploy.js --network sepolia
+npm run all
+```
+
+This executes `scripts/run_all.sh` which in turn performs compilation, runs the
+unit tests and then deploys the contracts to Sepolia.
+
+## Deploy & Mint
+
+Deploy to Sepolia with the predefined npm script:
+
+```bash
+npm run deploy
 ```
 
 The script deploys both contracts, mints one card to `STUDENT_WALLET`, mints a full set of characters to the deployer, then gifts characters 1 & 2 to the student. Example console output:
