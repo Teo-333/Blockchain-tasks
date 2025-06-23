@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx hardhat test",
     "deploy": "npx hardhat run scripts/deploy.js --network sepolia",
-    "compile": "npx hardhat compile"
+    "compile": "npx hardhat compile",
+    "all": "bash scripts/run_all.sh"
   },
   "keywords": [],
   "author": "",
