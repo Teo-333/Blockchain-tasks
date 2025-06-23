@@ -1,13 +1,30 @@
-# Sample Hardhat Project
+# Upgradeable ERC20 Example
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This project demonstrates upgrading a token proxy using Hardhat and OpenZeppelin.
 
-Try running some of the following tasks:
+## Deployment on Sepolia
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
+1. Copy `.env.example` to `.env` and fill in your Sepolia RPC URL and the
+   private key of the deploying account:
+
+```bash
+cp .env.example .env
 ```
+
+2. Deploy the initial implementation behind a proxy:
+
+```bash
+npx hardhat run scripts/deploy-v1.js --network sepolia
+```
+
+3. Interact with the proxy contract (mint and transfer tokens) using the
+   deployed address.
+
+4. Deploy the new implementation and upgrade the proxy:
+
+```bash
+PROXY_ADDRESS=<deployed proxy address> npx hardhat run scripts/upgrade-v2.js --network sepolia
+```
+
+The test `token-upgrade.js` shows the full workflow and prints logs of balances
+before and after the upgrade.
